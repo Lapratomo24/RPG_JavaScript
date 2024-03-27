@@ -9,40 +9,35 @@ let playerHealth = healthBar;
 
 adjustHealthBars(healthBar);
 
-const attackMonster = (mode) => {
-    
+const attackMonster = (type) => {
+    let maxDamage;
+    if (type === 'attack') {
+        maxDamage = attackValue;
+    } else if (type === 'strongAttack') {
+        maxDamage = strongAttackValue;
+    }
+
+    const damage = dealMonsterDamage(maxDamage);
+    monsterHealth -= damage; 
+
+    const playerDamage = dealPlayerDamage(monsterAttackValue);
+    playerHealth -= playerDamage;
+
+    if (monsterHealth <= 0 && playerHealth > 0) {
+        console.log("You won!");
+    } else if (playerHealth <= 0 && monsterHealth > 0) {
+        console.log("You lost!");
+    } else if (monsterHealth <= 0 && playerHealth <= 0) {
+        console.log("You drew!");
+    }
 }
 
 const performAttackHandler = () => {
-    const damage = dealMonsterDamage(attackValue);
-    monsterHealth -= damage; 
-
-    const playerDamage = dealPlayerDamage(monsterAttackValue);
-    playerHealth -= playerDamage;
-
-    if (monsterHealth <= 0 && playerHealth > 0) {
-        console.log("You won!");
-    } else if (playerHealth <= 0 && monsterHealth > 0) {
-        console.log("You lost!");
-    } else if (monsterHealth <= 0 && playerHealth <= 0) {
-        console.log("You drew!");
-    }
+    attackMonster('attack');
 }
 
 const performStrongAttackHandler = () => {
-    const damage = dealMonsterDamage(strongAttackValue);
-    monsterHealth -= damage; 
-
-    const playerDamage = dealPlayerDamage(monsterAttackValue);
-    playerHealth -= playerDamage;
-
-    if (monsterHealth <= 0 && playerHealth > 0) {
-        console.log("You won!");
-    } else if (playerHealth <= 0 && monsterHealth > 0) {
-        console.log("You lost!");
-    } else if (monsterHealth <= 0 && playerHealth <= 0) {
-        console.log("You drew!");
-    }
+    attackMonster('strongAttack');
 }
 
 attackBtn.addEventListener('click', performAttackHandler);
