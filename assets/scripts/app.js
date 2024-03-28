@@ -11,6 +11,12 @@ let hasBonusLife = true;
 
 adjustHealthBars(healthBar);
 
+const reset = () => {
+    monsterHealth = healthBar;
+    playerHealth = healthBar;
+    resetGame(healthBar);
+}
+
 const endRound = () => {
     const initialLife = playerHealth;
     const playerDamage = dealPlayerDamage(monsterAttackValue);
@@ -26,10 +32,13 @@ const endRound = () => {
 
     if (monsterHealth <= 0 && playerHealth > 0) {
         alert("You won!");
+        reset();
     } else if (playerHealth <= 0 && monsterHealth > 0) {
         alert("You lost!");
+        reset();
     } else if (monsterHealth <= 0 && playerHealth <= 0) {
         alert("You drew!");
+        reset();
     }
 }
 
