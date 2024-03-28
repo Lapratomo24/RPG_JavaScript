@@ -7,12 +7,22 @@ const healAmount = 20;
 let healthBar = 100;
 let monsterHealth = healthBar;
 let playerHealth = healthBar;
+let hasBonusLife = true;
 
 adjustHealthBars(healthBar);
 
 const endRound = () => {
+    const initialLife = playerHealth;
     const playerDamage = dealPlayerDamage(monsterAttackValue);
     playerHealth -= playerDamage;
+
+    if (playerHealth <= 0 && hasBonusLife) {
+        hasBonusLife = false;
+        removeBonusLife();
+        playerHealth = initialLife;
+        setPlayerHealth(initialLife);
+        alert("One more chance at this");
+    }
 
     if (monsterHealth <= 0 && playerHealth > 0) {
         alert("You won!");
