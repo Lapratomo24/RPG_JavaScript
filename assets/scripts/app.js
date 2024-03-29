@@ -26,47 +26,21 @@ let hasBonusLife = true;
 adjustHealthBars(healthBar);
 
 const showLog = (event, value, monsterHealth, playerHealth) => {
-    let logEntry;
+    let logEntry = {
+        event: event,
+        value: value,
+        monsterHealth: monsterHealth,
+        playerHealth: playerHealth
+    };
     if (event === LOG_PLAYER_ATTACK) {
-        logEntry = {
-            event: event,
-            value: value,
-            target: 'MONSTER',
-            monsterHealth: monsterHealth,
-            playerHealth: playerHealth
-        }
+        logEntry.target = 'MONSTER'
     } else if (event === LOG_PLAYER_STRONG_ATTACK) {
-        logEntry = {
-            event: event,
-            value: value,
-            target: 'MONSTER',
-            monsterHealth: monsterHealth,
-            playerHealth: playerHealth
-        }
+        logEntry.target = 'MONSTER'
     } else if (event === LOG_MONSTER_ATTACK) {
-        logEntry = {
-            event: event,
-            value: value,
-            target: 'PLAYER',
-            monsterHealth: monsterHealth,
-            playerHealth: playerHealth
-        } 
+        logEntry.target = 'PLAYER'
     } else if (event === LOG_PLAYER_HEAL) {
-        logEntry = {
-            event: event,
-            value: value,
-            target: 'PLAYER',
-            monsterHealth: monsterHealth,
-            playerHealth: playerHealth
-        }
-    } else if (event === LOG_GAME_OVER) {
-        logEntry = {
-            event: event,
-            value: value,
-            monsterHealth: monsterHealth,
-            playerHealth: playerHealth
-        }
-    } 
+        logEntry.target = 'PLAYER'
+    }
     battleLog.push(logEntry);
 } 
 
