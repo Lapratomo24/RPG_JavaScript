@@ -10,15 +10,26 @@ const LOG_MONSTER_ATTACK = "MONSTER_ATTACK";
 const LOG_PLAYER_HEAL = "PLAYER_HEAL";
 const LOG_GAME_OVER = "GAME_OVER";
 
-const enteredValue = prompt("Enter a value", "100");
-
-let healthBar = parseInt(enteredValue);
-let battleLog = [];
-
-if (isNaN(healthBar) || healthBar <= 0) {
-    healthBar = 100;
+const healthBarValues = () => {
+    const enteredValue = prompt("Enter a value", "100");
+    const parsedValue = parseInt(enteredValue);
+    if (isNaN(parsedValue) || parsedValue <= 0) {
+        throw { message: "Invalid input" };
+    }
+    return parsedValue;
 }
 
+let healthBar;
+
+try {
+    healthBar = healthBarValues();
+} catch (e) {
+    console.log(e);
+    healthBar = 100;
+    alert("Invalid input. Use a number!")
+}
+
+let battleLog = [];
 let monsterHealth = healthBar;
 let playerHealth = healthBar;
 let hasBonusLife = true;
@@ -127,7 +138,12 @@ const healPlayerHandler = () => {
 };
 
 const printBattleLogHandler = () => {
-    console.log(battleLog);
+    for (const entry of battleLog) {
+        console.log(entry);
+        for (const key in entry) {
+            console.log(`${key} - ${entry[key]}`);
+        }
+    }
 };
 
 attackBtn.addEventListener("click", performAttackHandler);
